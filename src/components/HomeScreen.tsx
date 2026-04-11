@@ -9,19 +9,19 @@ import HeroCard from "./HeroCard";
 const AGENTS = [
   {
     name: "Сценарист Reels",
-    url: "https://www.figma.com/api/mcp/asset/35110d8b-35b4-4e92-9414-e7ecb9b46dac",
+    url: "/images/agent-reels-scriptwriter.png",
   },
   {
     name: "SMM-Менеджер",
-    url: "https://www.figma.com/api/mcp/asset/9b8012c7-e7e7-43d6-9159-168d200a62d2",
+    url: "/images/agent-smm-manager.png",
   },
   {
     name: "ИИ-фотограф",
-    url: "https://www.figma.com/api/mcp/asset/7a5d5964-f41c-459b-9f15-e6cebcfd0153",
+    url: "/images/agent-ai-photographer.png",
   },
   {
     name: "Нейрофотограф",
-    url: "https://www.figma.com/api/mcp/asset/50b946bf-1208-456c-8e76-c501f93a35f6",
+    url: "/images/agent-neuro-photographer.png",
   },
 ];
 
@@ -29,8 +29,7 @@ const HERO_CARDS = [
   {
     name: "image-gen",
     title: "Сгенерировать\nизображение",
-    image:
-      "https://www.figma.com/api/mcp/asset/1a8523b1-517a-47a0-885c-7fe186e28134",
+    image: "/images/hero-image-generation.png",
     tags: [
       ["Banana Pro", "Flux", "Midjourney"],
       ["GPT Image", "Seedream", "Ideogram"],
@@ -40,21 +39,18 @@ const HERO_CARDS = [
   {
     name: "video-gen",
     title: "Сгенерировать видео",
-    image:
-      "https://www.figma.com/api/mcp/asset/da0ddca4-e5e8-4da5-af34-2f8b861ce595",
+    image: "/images/hero-video-generation.png",
     tags: [["Kling", "Veo3", "Hailuo", "Sora 2"]],
   },
   {
     name: "train",
     title: "Натренировать\nмодель с помощью\nсвоих фотографий",
-    image:
-      "https://www.figma.com/api/mcp/asset/c109a711-c9bb-4c49-8181-3ae5fdb5e553",
+    image: "/images/hero-model-training.png",
   },
   {
     name: "process",
     title: "Обработать фото",
-    image:
-      "https://www.figma.com/api/mcp/asset/3f34d190-2cbc-4edd-aba8-a09515ee021c",
+    image: "/images/hero-photo-processing.png",
     height: "h-[320px]",
   },
 ];
@@ -62,15 +58,15 @@ const HERO_CARDS = [
 const TEMPLATES = [
   {
     label: "Soft Roses",
-    url: "https://www.figma.com/api/mcp/asset/00184d55-ef4d-4347-b6b5-4da2dca76179",
+    url: "/images/template-soft-roses-1.png",
   },
   {
     label: "Soft Roses",
-    url: "https://www.figma.com/api/mcp/asset/33f3ffed-6163-4e17-ab01-8969a0fe7574",
+    url: "/images/template-soft-roses-2.png",
   },
   {
     label: "Soft Roses",
-    url: "https://www.figma.com/api/mcp/asset/18df100c-2048-4cf8-8d6a-71d6c53b2455",
+    url: "/images/template-soft-roses-3.png",
   },
 ];
 
@@ -95,14 +91,14 @@ export default function HomeScreen({ onNavigateToGenerator }: HomeScreenProps) {
       <div className="pt-[25px] px-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <Image
-            src="https://www.figma.com/api/mcp/asset/06d812aa-dd13-48c5-bb03-ebc7d17633bd"
+            src="/images/logo-imi.svg"
             alt="IMI"
             width={62}
             height={24}
           />
           <div className="bg-blue-accent rounded-[6px] px-[5px] py-[4px] flex items-center gap-[3px]">
             <Image
-              src="https://www.figma.com/api/mcp/asset/4cae27e3-917b-4ddf-9d1b-691259db8145"
+              src="/icons/icon-circle-dot.svg"
               alt=""
               width={10}
               height={10}
@@ -112,17 +108,12 @@ export default function HomeScreen({ onNavigateToGenerator }: HomeScreenProps) {
         </div>
         <div className="flex items-center gap-2">
           <div className="bg-[#e8eaee] rounded-full p-2 flex items-center justify-center">
-            <Image
-              src="https://www.figma.com/api/mcp/asset/f41e4329-b630-41ba-957f-bcdf48e75d69"
-              alt="user"
-              width={16}
-              height={16}
-            />
+            <Image src="/icons/icon-user.svg" alt="user" width={16} height={16} />
           </div>
           <div className="bg-[#e8eaee] rounded-full px-3 py-2 flex items-center gap-1 text-black text-[12px] font-norms">
             <span>50</span>
             <Image
-              src="https://www.figma.com/api/mcp/asset/c074a7fa-0512-4139-acf4-67b73383172a"
+              src="/icons/icon-coins.svg"
               alt="coins"
               width={12}
               height={12}
@@ -205,7 +196,7 @@ export default function HomeScreen({ onNavigateToGenerator }: HomeScreenProps) {
           whileTap={{ scale: 0.95 }}
         >
           <Image
-            src="https://www.figma.com/api/mcp/asset/3866ad49-af70-4209-9eff-c5e517203f09"
+            src="/icons/icon-show-all.svg"
             alt="icon"
             width={10}
             height={10}

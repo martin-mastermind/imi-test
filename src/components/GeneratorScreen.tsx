@@ -25,23 +25,23 @@ const RESOLUTIONS = ["1K", "2K", "4K"] as const;
 const TEMPLATES = [
   {
     name: "Розовый портрет",
-    url: "https://www.figma.com/api/mcp/asset/da438f96-5383-47aa-a462-e603b6861e8c",
+    url: "/images/template-pink-portrait.png",
   },
   {
     name: "В небоскребе среди цветов",
-    url: "https://www.figma.com/api/mcp/asset/8e021dd0-d31f-4b2e-8002-2c0b2f9b15b4",
+    url: "/images/template-skyscraper-flowers.png",
   },
   {
     name: "Нежность",
-    url: "https://www.figma.com/api/mcp/asset/3db66bb0-3f5f-41fb-b7cf-fe978179381f",
+    url: "/images/template-tenderness.png",
   },
   {
     name: "8 марта в стиле",
-    url: "https://www.figma.com/api/mcp/asset/4b8494c7-4cc2-4ef0-b4d1-ec81e3c3ea31",
+    url: "/images/template-march-8-style.png",
   },
   {
     name: "Море цветов",
-    url: "https://www.figma.com/api/mcp/asset/70721ea2-6949-4af3-83fb-26ae465b6628",
+    url: "/images/template-sea-flowers.png",
   },
 ];
 
@@ -127,7 +127,7 @@ export default function GeneratorScreen({
       <div className="bg-bg-main h-[40px] pt-4 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Image
-            src="https://www.figma.com/api/mcp/asset/0791e79d-1908-431d-abc4-4ac4312bb1ce"
+            src="/icons/icon-photo.svg"
             alt="photo"
             width={14}
             height={14}
@@ -136,7 +136,7 @@ export default function GeneratorScreen({
             Создание изображений
           </span>
           <Image
-            src="https://www.figma.com/api/mcp/asset/fa8a6356-75c5-478d-983b-dad2429ff44a"
+            src="/icons/icon-chevron.svg"
             alt="chevron"
             width={16}
             height={16}
@@ -147,12 +147,7 @@ export default function GeneratorScreen({
           className="bg-transparent rounded-[10px] p-2 hover:bg-[rgba(255,255,255,0.1)]"
           whileTap={{ scale: 0.9 }}
         >
-          <Image
-            src="https://www.figma.com/api/mcp/asset/8583dfe2-c3f1-483f-89cf-9fa6de9ba22c"
-            alt="close"
-            width={20}
-            height={20}
-          />
+          <Image src="/icons/icon-close.svg" alt="close" width={20} height={20} />
         </motion.button>
       </div>
 
@@ -218,13 +213,11 @@ export default function GeneratorScreen({
             <div className="flex items-center gap-2 text-white text-[14px] font-norms">
               <span>{selectedModel}</span>
               <motion.img
-                src="https://www.figma.com/api/mcp/asset/fa8a6356-75c5-478d-983b-dad2429ff44a"
+                src="/icons/icon-chevron.svg"
                 alt="chevron"
-                width={16}
-                height={16}
                 animate={{ rotate: modelOpen ? 180 : 0 }}
                 transition={{ duration: 0.2 }}
-                style={{ width: 16, height: 16 }}
+                className="w-4 h-4"
               />
             </div>
           </motion.button>
@@ -312,7 +305,9 @@ export default function GeneratorScreen({
           <motion.button
             onClick={() => {
               const currentIndex = RESOLUTIONS.indexOf(resolution);
-              setResolution(RESOLUTIONS[(currentIndex + 1) % RESOLUTIONS.length]);
+              setResolution(
+                RESOLUTIONS[(currentIndex + 1) % RESOLUTIONS.length],
+              );
             }}
             className="px-3 py-2 rounded-[12px] bg-[#C8D7E6] text-black font-norms font-medium text-[16px] flex items-center justify-center shadow-sm"
             whileTap={{ scale: 0.95 }}
@@ -328,12 +323,7 @@ export default function GeneratorScreen({
         >
           Создать фото
           <span className="bg-[rgba(255,255,255,0.1)] rounded-[10px] px-[10px] py-[6px] flex items-center justify-center gap-1 w-[64px] h-[26px]">
-            <Image
-              src="https://www.figma.com/api/mcp/asset/3ac13cf3-0ad4-4370-a684-98019c4beadc"
-              alt="star"
-              width={16}
-              height={16}
-            />
+            <Image src="/icons/icon-star.svg" alt="star" width={16} height={16} />
             <span className="text-[14px]">2</span>
           </span>
         </motion.button>

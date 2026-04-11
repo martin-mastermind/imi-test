@@ -1,10 +1,5 @@
 import Image from "next/image";
 
-const sendIconSvg =
-  "https://www.figma.com/api/mcp/asset/b27aadd0-4d2c-43df-8ef9-792c1464501a";
-const dropdownIconSvg =
-  "https://www.figma.com/api/mcp/asset/3be68d28-62c2-42ca-9dec-5156ff4a1f01";
-
 export default function Input() {
   return (
     <div
@@ -29,11 +24,11 @@ export default function Input() {
           GPT-5.2
         </span>
         <Image
+          src="/icons/icon-dropdown.svg"
           alt="dropdown"
-          src={dropdownIconSvg}
           width={16}
           height={16}
-          className="w-4 h-4 flex-shrink-0"
+          className="flex-shrink-0"
         />
       </button>
 
@@ -43,13 +38,7 @@ export default function Input() {
         data-node-id="0:18"
         data-name="Button"
       >
-        <Image
-          alt="send"
-          src={sendIconSvg}
-          width={20}
-          height={20}
-          className="w-5 h-5"
-        />
+        <Image src="/icons/icon-send.svg" alt="send" width={20} height={20} />
       </button>
     </div>
   );

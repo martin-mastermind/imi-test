@@ -19,7 +19,7 @@ export default function UploadButton({
       whileTap={{ scale: tapScale }}
     >
       <Image
-        src="https://www.figma.com/api/mcp/asset/d524bbcb-27e6-44ed-b4b1-40cab322cde0"
+        src="/icons/icon-upload.svg"
         alt="upload"
         width={41}
         height={41}
