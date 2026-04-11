@@ -26,22 +26,27 @@ const TEMPLATES = [
   {
     name: "Розовый портрет",
     url: "/images/template-pink-portrait.png",
+    prompt: "Розовый портрет в нежных тонах",
   },
   {
     name: "В небоскребе среди цветов",
     url: "/images/template-skyscraper-flowers.png",
+    prompt: "Городской пейзаж с небоскребом в окружении цветов",
   },
   {
     name: "Нежность",
     url: "/images/template-tenderness.png",
+    prompt: "Нежное и чувственное изображение",
   },
   {
     name: "8 марта в стиле",
     url: "/images/template-march-8-style.png",
+    prompt: "8 марта, праздничный стиль с цветами",
   },
   {
     name: "Море цветов",
     url: "/images/template-sea-flowers.png",
+    prompt: "Красивое море цветов",
   },
 ];
 
@@ -67,6 +72,7 @@ export default function GeneratorScreen({
   const [uploads, setUploads] = useState<UploadedImage[]>([]);
   const [selectedModel, setSelectedModel] = useState("Nano Banana Pro");
   const [modelOpen, setModelOpen] = useState(false);
+  const [templatePrompts, setTemplatePrompts] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,29 +103,53 @@ export default function GeneratorScreen({
   };
 
   const handleTemplateClick = async (template: (typeof TEMPLATES)[0]) => {
-    if (uploads.length >= 10) return;
-    if (uploads.some((u) => u.label === `Шаблон ${template.name}`)) return;
-    setUploads((u) => [
-      ...u,
-      {
-        id: Math.random().toString(),
-        dataUrl: template.url,
-        label: `Шаблон ${template.name}`,
-        isTemplate: true,
-      },
-    ]);
+    const templateLabel = `Шаблон ${template.name}`;
+    const isAlreadySelected = uploads.some((u) => u.label === templateLabel);
+
+    if (isAlreadySelected) {
+      // Remove template if already selected
+      setUploads((u) => u.filter((img) => img.label !== templateLabel));
+      setTemplatePrompts((p) => p.filter((prompt) => prompt !== template.prompt));
+    } else {
+      // Add template if not selected
+      if (uploads.length >= 10) return;
+      setUploads((u) => [
+        ...u,
+        {
+          id: Math.random().toString(),
+          dataUrl: template.url,
+          label: templateLabel,
+          isTemplate: true,
+        },
+      ]);
+      // Add template prompt
+      setTemplatePrompts((p) => [...p, template.prompt]);
+    }
   };
 
   const handleRemoveUpload = (id: string) => {
+    const uploadToRemove = uploads.find((img) => img.id === id);
+    if (uploadToRemove && uploadToRemove.isTemplate) {
+      // Find and remove the corresponding template prompt by matching the template name
+      const templateName = uploadToRemove.label?.replace("Шаблон ", "");
+      const template = TEMPLATES.find((t) => t.name === templateName);
+      if (template) {
+        setTemplatePrompts((p) => p.filter((prompt) => prompt !== template.prompt));
+      }
+    }
     setUploads((u) => u.filter((img) => img.id !== id));
   };
 
   const handleGenerate = () => {
-    if (!prompt.trim()) {
+    const finalPrompt = [prompt, ...templatePrompts]
+      .filter((p) => p.trim())
+      .join(". ");
+
+    if (!finalPrompt.trim()) {
       alert("Enter a prompt");
       return;
     }
-    onGenerate(prompt, aspectRatio, resolution, uploads);
+    onGenerate(finalPrompt, aspectRatio, resolution, uploads);
   };
 
   return (
