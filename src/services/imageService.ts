@@ -8,7 +8,6 @@ export async function createTask(
   aspectRatio: AspectRatio,
   resolution: Resolution = '1K',
   imageInputs: string[] = [],
-  callBackUrl?: string
 ): Promise<string> {
   const body: Record<string, unknown> = {
     model: 'nano-banana-2',
@@ -20,11 +19,6 @@ export async function createTask(
       ...(imageInputs.length > 0 ? { image_input: imageInputs } : {}),
     },
   };
-
-  // Add callback URL if provided
-  if (callBackUrl) {
-    (body as any).callBackUrl = callBackUrl;
-  }
 
   const res = await fetch(`${BASE_URL}/jobs/createTask`, {
     method: 'POST',
@@ -45,19 +39,10 @@ export async function pollJobStatus(taskId: string): Promise<string> {
   const maxAttempts = 120; // 4 minutes (2 seconds * 120)
 
   for (let i = 0; i < maxAttempts; i++) {
-    // First check callback endpoint
-    const callbackRes = await fetch(`/api/callback?taskId=${taskId}`);
-    if (callbackRes.ok) {
-      const result = await callbackRes.json();
-      if (result.imageUrl) {
-        return result.imageUrl;
-      }
+    if (i > 0) {
+      await new Promise((r) => setTimeout(r, 2000));
     }
 
-    // Wait before next attempt
-    await new Promise(r => setTimeout(r, 2000));
-
-    // Fallback to polling the API
     const res = await fetch(`${BASE_URL}/jobs/recordInfo?taskId=${taskId}`, {
       headers: { Authorization: `Bearer ${API_KEY}` },
     });
