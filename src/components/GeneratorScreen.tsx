@@ -125,10 +125,11 @@ export default function GeneratorScreen({
   return (
     <div className="bg-bg-main min-h-screen text-text-light">
       <div className="bg-bg-main h-[40px] flex items-center justify-between pl-[14px] pr-[12px]">
-        <div className="flex items-center mt-[15px] gap-[6px]">
+        <div className="flex items-center mt-[15px] gap-[4px]">
           <PhotoIcon width={15} height={15} />
-          <h2 className="text-text-muted text-[16px] font-norms font-medium leading-[24px]">
-            Создание изображений
+          <h2 className="ml-[2px] flex gap-[7px] text-text-muted text-[16px] font-norms font-medium leading-[24px]">
+            <span>Создание</span>
+            <span>изображений</span>
           </h2>
           <ChevronIcon width={16} height={16} className="text-text-muted" />
         </div>
