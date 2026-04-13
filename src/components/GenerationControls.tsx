@@ -59,7 +59,7 @@ export default function GenerationControls({
               RESOLUTIONS[(currentIndex + 1) % RESOLUTIONS.length],
             );
           }}
-          className="h-[36px] px-3 py-2 rounded-[12px] bg-[#C8D7E6] text-black font-norms font-medium text-[16px] flex items-center justify-center shadow-sm"
+          className="h-[36px] px-3 py-2 rounded-[12px] bg-[#C8D7E6] text-black font-norms font-medium text-[14px] flex items-center justify-center shadow-sm"
           whileTap={{ scale: 0.95 }}
         >
           {resolution}
