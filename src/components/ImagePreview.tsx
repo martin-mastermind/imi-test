@@ -39,8 +39,8 @@ export default function ImagePreview({
         <div className="absolute inset-0 bg-black/45 rounded-[8px]" />
 
         {/* Text Labels - Bottom Left Corner */}
-        <div className="absolute bottom-[16px] left-[16px] flex flex-col gap-0 z-5 max-w-[137px]">
-          <p className="text-[#B7BFCE] text-[12px] font-norms font-normal leading-[1.28] truncate">
+        <div className="absolute bottom-[16px] left-[16px] flex flex-col z-5 max-w-[137px]">
+          <p className="text-[#B7BFCE] text-[12px] font-norms font-normal leading-[1.25] truncate">
             {templateName}
           </p>
           <p className="text-[#B7BFCE] text-[12px] font-norms font-medium leading-[1.28] truncate">
@@ -51,7 +51,7 @@ export default function ImagePreview({
         {/* Delete Button */}
         <motion.button
           onClick={onDelete}
-          className="absolute top-[3px] right-[3px] w-[20px] h-[20px] z-10 flex items-center justify-center rounded-[6px] transition-colors"
+          className="absolute top-[3px] right-[5px] w-[20px] h-[20px] z-10 flex items-center justify-center rounded-[6px] transition-colors"
           style={{ backgroundColor: "rgba(15, 15, 17, 0.75)" }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}

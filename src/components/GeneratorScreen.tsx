@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TemplateCard from "./TemplateCard";
@@ -7,6 +6,11 @@ import UploadButton from "./UploadButton";
 import ImagePreview from "./ImagePreview";
 import type { AspectRatio, Resolution, UploadedImage } from "@/types";
 import { validateImageFile, uploadImageFile } from "@/services/imageService";
+
+import CloseIcon from "@/../public/icons/icon-close.svg";
+import PhotoIcon from "@/../public/icons/icon-photo.svg";
+import ChevronIcon from "@/../public/icons/icon-chevron.svg";
+import StarIcon from "@/../public/icons/icon-star.svg";
 
 const MODELS = ["Nano Banana Pro"];
 const ASPECT_RATIOS: AspectRatio[] = [
@@ -67,7 +71,7 @@ export default function GeneratorScreen({
   isLoading,
 }: GeneratorScreenProps) {
   const [prompt, setPrompt] = useState("");
-  const [aspectRatio, setAspectRatio] = useState<AspectRatio>("1:1");
+  const [aspectRatio, setAspectRatio] = useState<AspectRatio>("16:9");
   const [resolution, setResolution] = useState<Resolution>("1K");
   const [uploads, setUploads] = useState<UploadedImage[]>([]);
   const [selectedModel, setSelectedModel] = useState("Nano Banana Pro");
@@ -109,7 +113,9 @@ export default function GeneratorScreen({
     if (isAlreadySelected) {
       // Remove template if already selected
       setUploads((u) => u.filter((img) => img.label !== templateLabel));
-      setTemplatePrompts((p) => p.filter((prompt) => prompt !== template.prompt));
+      setTemplatePrompts((p) =>
+        p.filter((prompt) => prompt !== template.prompt),
+      );
     } else {
       // Add template if not selected
       if (uploads.length >= 10) return;
@@ -134,7 +140,9 @@ export default function GeneratorScreen({
       const templateName = uploadToRemove.label?.replace("Шаблон ", "");
       const template = TEMPLATES.find((t) => t.name === templateName);
       if (template) {
-        setTemplatePrompts((p) => p.filter((prompt) => prompt !== template.prompt));
+        setTemplatePrompts((p) =>
+          p.filter((prompt) => prompt !== template.prompt),
+        );
       }
     }
     setUploads((u) => u.filter((img) => img.id !== id));
@@ -154,37 +162,28 @@ export default function GeneratorScreen({
 
   return (
     <div className="bg-bg-main min-h-screen text-text-light">
-      <div className="bg-bg-main h-[40px] pt-4 flex items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-          <Image
-            src="/icons/icon-photo.svg"
-            alt="photo"
-            width={14}
-            height={14}
-          />
-          <span className="text-text-muted text-[16px] font-norms font-medium leading-[24px]">
-            Создание изображений
-          </span>
-          <Image
-            src="/icons/icon-chevron.svg"
-            alt="chevron"
-            width={16}
-            height={16}
-          />
+      <div className="bg-bg-main h-[40px] flex items-center justify-between pl-[14px] pr-[12px]">
+        <div className="flex items-center mt-[15px] gap-[6px]">
+          <PhotoIcon width={15} height={15} />
+          <h2 className="flex gap-[6px] text-text-muted text-[16px] font-norms font-medium leading-[24px]">
+            <span>Создание</span>
+            <span>изображений</span>
+          </h2>
+          <ChevronIcon width={16} height={16} className="text-text-muted" />
         </div>
         <motion.button
           onClick={onClose}
-          className="bg-transparent rounded-[10px] p-2 hover:bg-[rgba(255,255,255,0.1)]"
+          className="bg-transparent rounded-[10px] p-2 mt-[17px] hover:bg-[rgba(255,255,255,0.1)]"
           whileTap={{ scale: 0.9 }}
         >
-          <Image src="/icons/icon-close.svg" alt="close" width={20} height={20} />
+          <CloseIcon width={20} height={20} />
         </motion.button>
       </div>
 
       <div className="pb-[180px]">
         <div className="mx-4 mt-4 flex gap-3">
           {uploads.length > 0 ? (
-            <div className="flex gap-3 w-full overflow-x-auto pb-2">
+            <div className="flex gap-[7px] w-full overflow-x-auto">
               {uploads.map((img) => {
                 const isTemplate = img.label?.startsWith("Шаблон");
                 const imageName = isTemplate
@@ -202,8 +201,9 @@ export default function GeneratorScreen({
               })}
               {uploads.length < 10 && (
                 <UploadButton
+                  inRow={true}
                   onClick={() => fileInputRef.current?.click()}
-                  className="flex-1 basis-0 min-w-[169px] h-[124px] rounded-[12px] border-2 border-dashed border-[rgba(255,255,255,0.1)] bg-[#0e0e0e] flex flex-col items-center justify-center"
+                  className="flex-1 basis-0 min-w-[169px] h-[125px] rounded-[12px] border border-dashed border-[rgba(255,255,255,0.1)] bg-[#0e0e0e] flex flex-col items-center justify-center"
                   tapScale={0.95}
                 />
               )}
@@ -211,7 +211,7 @@ export default function GeneratorScreen({
           ) : (
             <UploadButton
               onClick={() => fileInputRef.current?.click()}
-              className="w-full h-[125px] rounded-[12px] border-2 border-dashed border-[rgba(255,255,255,0.1)] bg-[#0e0e0e] flex flex-col items-center justify-center"
+              className="w-full h-[125px] rounded-[12px] border border-dashed border-[rgba(255,255,255,0.1)] bg-[#0e0e0e] flex flex-col items-center justify-center"
               tapScale={0.98}
             />
           )}
@@ -225,30 +225,24 @@ export default function GeneratorScreen({
           className="hidden"
         />
 
-        <div className="relative mx-4 mt-4 bg-bg-card border border-[#343537] rounded-[12px]">
+        <div className="flex flex-col mx-[15px] mt-[19px] bg-bg-card border border-[#343537] rounded-[12px]">
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder="Напишите что вы хотите создать?"
-            className="w-full h-[138px] bg-transparent text-[#BFC9D9] text-[16px] font-norms placeholder-[#BFC9D9] p-4 outline-none resize-none"
+            className="w-full h-[138px] bg-transparent text-[#BFC9D9] text-[16px] font-norms placeholder-[#BFC9D9] py-[20px] px-[17px] tracking-[-1%] outline-none resize-none"
           />
           <motion.button
             onClick={() => setModelOpen(!modelOpen)}
-            className="border-t border-[#343537] font-medium px-4 py-3 flex justify-between items-center w-full bg-transparent hover:bg-[rgba(255,255,255,0.05)]"
+            className="border-t border-[#343537] font-medium px-4 py-4 flex justify-between items-center w-full bg-transparent hover:bg-[rgba(255,255,255,0.05)]"
             transition={{ duration: 0.2 }}
           >
             <label className="text-text-muted text-[13.9px] font-norms">
               Модель
             </label>
-            <div className="flex items-center gap-2 text-white text-[14px] font-norms">
+            <div className="flex items-center gap-[10px] text-white text-[14px] font-norms">
               <span>{selectedModel}</span>
-              <motion.img
-                src="/icons/icon-chevron.svg"
-                alt="chevron"
-                animate={{ rotate: modelOpen ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="w-4 h-4"
-              />
+              <ChevronIcon width={16} height={16} className="text-white" />
             </div>
           </motion.button>
           <AnimatePresence>
@@ -279,12 +273,15 @@ export default function GeneratorScreen({
           </AnimatePresence>
         </div>
 
-        <div className="mt-6 px-4">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-machina text-[20px] text-white">
+        <div className="mt-[20px] px-4">
+          <div className="flex justify-between items-center mb-[15px]">
+            <h3 className="font-machina text-[20px] text-white pl-[4px]">
               Фото шаблоны
             </h3>
-            <a href="#" className="text-[#0067E7] text-[14px] font-norms">
+            <a
+              href="#"
+              className="mt-[6px] w-[94px] text-[#0067E7] text-[14px] font-medium leading-[20px] font-inter"
+            >
               Показать все
             </a>
           </div>
@@ -300,63 +297,64 @@ export default function GeneratorScreen({
             ))}
           </div>
         </div>
-      </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-bg-main p-4">
-        <div className="flex gap-3 mb-4">
-          <motion.button
-            onClick={() => {
-              const currentIndex = ASPECT_RATIOS.indexOf(aspectRatio);
-              setAspectRatio(
-                ASPECT_RATIOS[(currentIndex + 1) % ASPECT_RATIOS.length],
-              );
-            }}
-            className="px-3 py-2 rounded-[12px] bg-[#C8D7E6] text-black font-norms font-medium text-[16px] flex items-center justify-center gap-2 shadow-sm"
-            whileTap={{ scale: 0.95 }}
-          >
-            <svg
-              width="22"
-              height="16"
-              viewBox="0 0 22 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+        <div className="flex flex-col gap-[10px] mt-[13px] pl-4 pr-[13px]">
+          <div className="ml-[4px] flex gap-[6px]">
+            <motion.button
+              onClick={() => {
+                const currentIndex = ASPECT_RATIOS.indexOf(aspectRatio);
+                setAspectRatio(
+                  ASPECT_RATIOS[(currentIndex + 1) % ASPECT_RATIOS.length],
+                );
+              }}
+              className="h-[36px] px-3 py-2 rounded-[12px] bg-[#C8D7E6] text-black font-norms font-medium text-[14px] flex items-center justify-center gap-[6px] shadow-sm"
+              whileTap={{ scale: 0.95 }}
             >
-              <path
-                d="M15.75 14.75H5.75C2.75 14.75 0.75 13.5147 0.75 10.6324V4.86765C0.75 1.98529 2.75 0.75 5.75 0.75H15.75C18.75 0.75 20.75 1.98529 20.75 4.86765V10.6324C20.75 13.5147 18.75 14.75 15.75 14.75Z"
-                stroke="#0E0F10"
-                strokeWidth="1.5"
-                strokeMiterlimit="10"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span>{aspectRatio}</span>
-          </motion.button>
+              <svg
+                width="22"
+                height="16"
+                viewBox="0 0 22 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.75 14.75H5.75C2.75 14.75 0.75 13.5147 0.75 10.6324V4.86765C0.75 1.98529 2.75 0.75 5.75 0.75H15.75C18.75 0.75 20.75 1.98529 20.75 4.86765V10.6324C20.75 13.5147 18.75 14.75 15.75 14.75Z"
+                  stroke="#0E0F10"
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span>{aspectRatio}</span>
+            </motion.button>
+            <motion.button
+              onClick={() => {
+                const currentIndex = RESOLUTIONS.indexOf(resolution);
+                setResolution(
+                  RESOLUTIONS[(currentIndex + 1) % RESOLUTIONS.length],
+                );
+              }}
+              className="h-[36px] px-3 py-2 rounded-[12px] bg-[#C8D7E6] text-black font-norms font-medium text-[16px] flex items-center justify-center shadow-sm"
+              whileTap={{ scale: 0.95 }}
+            >
+              {resolution}
+            </motion.button>
+          </div>
+
           <motion.button
-            onClick={() => {
-              const currentIndex = RESOLUTIONS.indexOf(resolution);
-              setResolution(
-                RESOLUTIONS[(currentIndex + 1) % RESOLUTIONS.length],
-              );
-            }}
-            className="px-3 py-2 rounded-[12px] bg-[#C8D7E6] text-black font-norms font-medium text-[16px] flex items-center justify-center shadow-sm"
-            whileTap={{ scale: 0.95 }}
+            onClick={handleGenerate}
+            disabled={isLoading}
+            className="w-full h-[48px] bg-blue-accent rounded-[12px] text-white font-norms font-bold text-[14px] relative disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-[29px]"
+            whileTap={!isLoading ? { scale: 0.98 } : {}}
           >
-            {resolution}
+            <span className="pl-[56px] tracking-[-0.35px]">Создать фото</span>
+            <span className="bg-[rgba(255,255,255,0.1)] rounded-[10px] px-[10px] py-[6px] flex items-center justify-center gap-[6px] w-[64px] h-[26px]">
+              <StarIcon className="ml-[-4px]" width={16} height={16} />
+              <span className="text-[14px] font-medium leading-[20px]">2</span>
+            </span>
           </motion.button>
         </div>
-        <motion.button
-          onClick={handleGenerate}
-          disabled={isLoading}
-          className="w-full h-[48px] bg-blue-accent rounded-[12px] text-white font-norms font-bold text-[14px] relative disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-4"
-          whileTap={!isLoading ? { scale: 0.98 } : {}}
-        >
-          Создать фото
-          <span className="bg-[rgba(255,255,255,0.1)] rounded-[10px] px-[10px] py-[6px] flex items-center justify-center gap-1 w-[64px] h-[26px]">
-            <Image src="/icons/icon-star.svg" alt="star" width={16} height={16} />
-            <span className="text-[14px]">2</span>
-          </span>
-        </motion.button>
       </div>
     </div>
   );

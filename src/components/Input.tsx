@@ -2,11 +2,7 @@ import Image from "next/image";
 
 export default function Input() {
   return (
-    <div
-      className="bg-[#1a1b1c] border border-[rgba(140,141,141,0.2)] border-solid rounded-[18px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] h-[48px] flex items-center pl-5 pr-2 gap-2"
-      data-node-id="0:15"
-      data-name="Input"
-    >
+    <div className="bg-[#1a1b1c] h-[50px] border border-[rgba(140,141,141,0.2)] border-solid rounded-[18px] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] h-[48px] flex items-center pl-5 pr-[7px] gap-2">
       {/* Text Input */}
       <input
         type="text"
@@ -15,12 +11,8 @@ export default function Input() {
       />
 
       {/* Model Selector Button */}
-      <button
-        className="h-[28px] rounded-[8px] px-2 flex items-center gap-1 hover:bg-[rgba(255,255,255,0.1)] transition-colors flex-shrink-0"
-        data-node-id="0:21"
-        data-name="Button listbox"
-      >
-        <span className="font-['TT_Norms:Medium',sans-serif] text-[#f5f5f6] text-[14px] whitespace-nowrap">
+      <button className="rounded-[8px] flex items-center gap-1 hover:bg-[rgba(255,255,255,0.1)] transition-colors flex-shrink-0">
+        <span className="font-norms text-white text-[14px] font-medium whitespace-nowrap">
           GPT-5.2
         </span>
         <Image

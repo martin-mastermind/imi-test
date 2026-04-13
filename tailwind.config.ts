@@ -6,6 +6,7 @@ const config: Config = {
       fontFamily: {
         machina: ["Neue Machina", "sans-serif"],
         norms: ["TT Norms", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       colors: {
         "blue-accent": "#0b3bec",
