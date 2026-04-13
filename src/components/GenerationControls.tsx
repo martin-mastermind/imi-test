@@ -22,7 +22,7 @@ export default function GenerationControls({
   isLoading,
 }: GenerationControlsProps) {
   return (
-    <div className="flex flex-col gap-[10px] mt-[13px] pl-4 pr-[13px]">
+    <div className="flex flex-col gap-[10px] mt-[29px] pl-4 pr-[13px]">
       <div className="flex gap-[6px] ml-[4px]">
         <motion.button
           onClick={() => {
