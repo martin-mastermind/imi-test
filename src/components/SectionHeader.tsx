@@ -17,7 +17,7 @@ export default function SectionHeader({
       {showLink && (
         <a
           href={linkHref}
-          className="mt-[6px] w-[94px] text-[#0067E7] text-[14px] font-medium leading-[20px] font-inter tracking-[0.46px]"
+          className="mt-[6px] w-[94px] text-[#0067E7] text-[14px] font-medium leading-[20px] font-inter"
         >
           {linkText}
         </a>
