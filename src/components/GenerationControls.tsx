@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { PublicModel, PublicModelOption } from "@/lib/catalog";
 import { computePrice } from "@/lib/catalog";
@@ -24,6 +24,13 @@ function OptionSheet({
   onSelect: (valueId: string) => void;
   onClose: () => void;
 }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 z-50" onClick={onClose}>
       <motion.div
@@ -48,7 +55,7 @@ function OptionSheet({
         <p className="px-4 pb-3 text-white font-norms font-medium text-[16px]">
           {option.label}
         </p>
-        <div className="divide-y divide-[#2a2b2c]">
+        <div className="divide-y divide-[#2a2b2c] max-h-[300px] overflow-y-auto">
           {option.values.map((value) => {
             const isSelected = value.id === selectedValueId;
             return (
